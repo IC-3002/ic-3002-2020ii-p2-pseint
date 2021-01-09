@@ -1,4 +1,44 @@
 from dominio import Dominio
+import csv as py_csv
+import random as rand
+
+ciudades = []
+indices_ciudades = []
+ciudad_inicio = 'Heredia'
+indice_ciudad_inicio = float('inf')
+
+with open('datos/ciudades_cr_pruebas.csv', 'r') as file:
+    reader = py_csv.reader(file)
+    for row in reader:
+        ciudades.append(row)
+
+
+for j in range (1, len(ciudades[0])):
+    if ciudades[0][j] == ciudad_inicio:
+        indice_ciudad_inicio = j - 1
+    indices_ciudades.append(j - 1)
+
+
+print('La matriz de ciudades es: ')
+for i in range (len(ciudades)):
+    for j in range (len(ciudades[0])):
+        print(ciudades[i][j], end=' ')
+    print()
+
+print('El indice de la ciudad de inicio es:', indice_ciudad_inicio)
+
+print('Los indices de todas las ciudades son', indices_ciudades)
+
+sol = [2, 1, 3]
+costo = 0.0
+
+for i in range(len(sol) - 1):
+    print(float(ciudades[sol[i]][sol[i+1]]))
+    costo += float(ciudades[sol[i]][sol[i+1]])
+        
+costo += float(ciudades[indice_ciudad_inicio][sol[0]]) + float(ciudades[sol[len(sol) - 1]][indice_ciudad_inicio])   
+
+
 
 
 class DominioTSP(Dominio):
@@ -45,9 +85,31 @@ class DominioTSP(Dominio):
             Una instancia de DominioTSP correctamente inicializada.
         """
 
-        # Pendiente: implementar este constructor
-        pass
+        ciudades = []
+        indices_ciudades = []
+        indice_ciudad_inicio = float('inf')
 
+        with open(ciudades_rutacsv, 'r') as file:
+            reader = py_csv.reader(file)
+            for row in reader:
+                ciudades.append(row)
+
+        for i in range (1, len(ciudades[0])):
+            if ciudades[0][j] == ciudad_inicio:
+                indice_ciudad_inicio = j- 1
+            indices_ciudades.append(j - 1)
+
+        self.ciudades_rutacsv = ciudades_rutacsv
+        self.ciudad_inicio = ciudad_inicio
+        self.indice_ciudad_inicio = indice_ciudad_inicio
+        self.indices_ciudades = indices_ciudades
+        self.matriz_ciudades = ciudades
+
+    def revisar_duplicados(lista):
+        if (len(lista) == len(set(lista))):
+            return False
+        return True
+    
     def validar(self, sol):
         """Valida que la solución dada cumple con los requisitos del problema.
 
@@ -64,9 +126,19 @@ class DominioTSP(Dominio):
         Salidas:
         (bool) True si la solución es válida, False en cualquier otro caso
         """
+        if (revisar_duplicados(sol) == True):
+            return False
 
-        # Pendiente: implementar este método
-        pass
+        if len(sol) != len(self.indices_ciudades) - 1:
+            return False
+
+        if all(isinstance(x , int) and x < len(self.indices_ciudades) for x in sol) == False:
+            return False
+
+        if self.indice_ciudad_inicio in sol:
+            return False
+
+        return True
 
     def texto(self, sol):
         """Construye una representación en hilera legible por humanos de la solución
@@ -83,8 +155,13 @@ class DominioTSP(Dominio):
         (str) Hilera en el formato mencionado anteriormente.
         """
 
-        # Pendiente: implementar este método
-        pass
+        string_sol = ''
+
+        for i in range(len(sol)):
+            string_sol += str(self.matriz_ciudades[0][sol[i] + 1]) + ' -> '
+
+        return string_sol
+
 
     def generar(self):
         """Construye aleatoriamente una lista que representa una posible solución al problema.
@@ -96,8 +173,11 @@ class DominioTSP(Dominio):
         (list) Una lista que representa una solución válida para esta instancia del vendedor viajero
         """
 
-        # Pendiente: implementar este método
-        pass
+        sol = self.indices_ciudades
+        sol.remove(self.indice_ciudad_inicio)
+        rand.shuffle(sol)
+
+        return sol
 
     def fcosto(self, sol):
         """Calcula el costo asociado con una solución dada.
@@ -109,9 +189,15 @@ class DominioTSP(Dominio):
         Salidas:
         (float) valor del costo asociado con la solución
         """
+        costo = 0.0
 
-        # Pendiente: implementar este método
-        pass
+        for i in range(len(sol)):
+            costo += self.matriz_ciudades[sol[i]][sol[i+1]]
+        
+        costo += self.matriz_ciudades[self.indice_ciudad_inicio][sol[0]] + self.matriz_ciudades[sol[len(sol)- 1]][self.indice_ciudad_inicio] 
+
+        return costo
+
 
     def vecino(self, sol):
         """Calcula una solución vecina a partir de una solución dada.
@@ -128,6 +214,15 @@ class DominioTSP(Dominio):
         Salidas:
         (list) Solución vecina
         """
+        n = len(sol)
+        
+        while i == j:
 
-        # Pendiente: implementar este método
-        pass
+            i = rand.randint(0, n-1)
+            j = rand.randint(0, n-1)
+        
+        temp = sol[i]
+        sol[i] = sol[j]
+        sol[j] = temp
+
+        return sol
