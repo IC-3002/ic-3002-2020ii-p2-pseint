@@ -83,7 +83,7 @@ class DominioAGTSP(DominioAG, DominioTSP):
         for i in range(n):
 
             rand.shuffle(sol)
-            sol.append(sol)
+            soluciones.append(sol)
 
         return soluciones
 
@@ -142,7 +142,7 @@ class DominioAGTSP(DominioAG, DominioTSP):
 
         punto_a = rand.randint(0,len(sol)-1)
         punto_b = rand.randint(0,len(sol)-1)
-        temp = sol[index1]
+        temp = sol[punto_a]
         
         sol[punto_a] = sol[punto_b]
         sol[punto_b] = temp
