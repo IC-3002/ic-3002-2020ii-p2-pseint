@@ -54,23 +54,34 @@ class Dominio(ABC):
         pass
 
     @abstractmethod
-    def vecino(self, sol):
-        """Calcula una solución vecina a partir de una solución dada.
-
-        Una solución vecina comparte la mayor parte de su estructura con 
-        la solución que la origina, aunque no son exactamente iguales. El 
-        método transforma aleatoriamente algún aspecto de la solución
-        original.
+    def vecino(sol):
+        """Revisa si la solucion dada contiene elementos duplicados o no.
 
         Entradas:
         sol (estructura de datos)
-            Solución a partir de la cual se calculará una nueva solución vecina.
+            Solución a partir de la cual se verificara si tiene elementos duplicados.
 
         Salidas:
-        (estructura de datos) nueva solución construida con base en la solución de la entrada.
+        (bool) valor booleano que determina si la solucion contiene elementos duplicados.
         """
 
         pass
+
+    @abstractmethod
+    def revisar_duplicados(self, sol):
+        """Construye una representación en hilera legible por humanos de la solución
+        con el fin de reportar resultados al usuario final.
+
+        Entradas:
+        sol (estructura de datos)
+            La solución a transformar en texto legible
+
+        Salidas:
+        (str) El texto legible que representa a la solución.
+        """
+
+        pass
+
 
     @abstractmethod
     def validar(self, sol):

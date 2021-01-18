@@ -1,6 +1,6 @@
 from dominio_ag import DominioAG
 from dominio_tsp import DominioTSP
-
+import csv as py_csv
 import random as rand
 
 class DominioAGTSP(DominioAG, DominioTSP):
@@ -52,7 +52,7 @@ class DominioAGTSP(DominioAG, DominioTSP):
             for row in reader:
                 ciudades.append(row)
 
-        for i in range (1, len(ciudades[0])):
+        for j in range (1, len(ciudades[0])):
             if ciudades[0][j] == ciudad_inicio:
                 indice_ciudad_inicio = j- 1
             indices_ciudades.append(j - 1)
@@ -112,7 +112,7 @@ class DominioAGTSP(DominioAG, DominioTSP):
         gen_a = sol_a[0:punto_cruce]
         gen_b = sol_b[punto_cruce:]
 
-        onjunto = list(set(sol_a)) + list(set(sol_b))
+        conjunto = list(set(sol_a)) + list(set(sol_b))
 
         for element in gen_a:
             if element in gen_b:

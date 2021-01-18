@@ -2,44 +2,6 @@ from dominio import Dominio
 import csv as py_csv
 import random as rand
 
-ciudades = []
-indices_ciudades = []
-ciudad_inicio = 'Heredia'
-indice_ciudad_inicio = float('inf')
-
-with open('datos/ciudades_cr_pruebas.csv', 'r') as file:
-    reader = py_csv.reader(file)
-    for row in reader:
-        ciudades.append(row)
-
-
-for j in range (1, len(ciudades[0])):
-    if ciudades[0][j] == ciudad_inicio:
-        indice_ciudad_inicio = j - 1
-    indices_ciudades.append(j - 1)
-
-
-print('La matriz de ciudades es: ')
-for i in range (len(ciudades)):
-    for j in range (len(ciudades[0])):
-        print(ciudades[i][j], end=' ')
-    print()
-
-print('El indice de la ciudad de inicio es:', indice_ciudad_inicio)
-
-print('Los indices de todas las ciudades son', indices_ciudades)
-
-sol = [2, 1, 3]
-costo = 0.0
-
-for i in range(len(sol) - 1):
-    print(float(ciudades[sol[i]][sol[i+1]]))
-    costo += float(ciudades[sol[i]][sol[i+1]])
-        
-costo += float(ciudades[indice_ciudad_inicio][sol[0]]) + float(ciudades[sol[len(sol) - 1]][indice_ciudad_inicio])   
-
-
-
 
 class DominioTSP(Dominio):
     """
@@ -94,7 +56,7 @@ class DominioTSP(Dominio):
             for row in reader:
                 ciudades.append(row)
 
-        for i in range (1, len(ciudades[0])):
+        for j in range (1, len(ciudades[0])):
             if ciudades[0][j] == ciudad_inicio:
                 indice_ciudad_inicio = j- 1
             indices_ciudades.append(j - 1)
@@ -126,7 +88,7 @@ class DominioTSP(Dominio):
         Salidas:
         (bool) True si la solución es válida, False en cualquier otro caso
         """
-        if (revisar_duplicados(sol) == True):
+        if revisar_duplicados(sol) == True:
             return False
 
         if len(sol) != len(self.indices_ciudades) - 1:
