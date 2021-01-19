@@ -5,35 +5,35 @@ import random as rand
 
 class DominioTSP(Dominio):
     """
-    Esta clase modela el dominio del problema del Vendedor Viajero para su resolución
-    con algoritmos probabilísticos.
+    Esta clase modela el dominio del problema del Vendedor Viajero para su resolucion
+    con algoritmos probabilisticos.
 
-    Las soluciones se modelan como listas de enteros, donde cada número representa
-    una ciudad específica. Si el grafo contiene n ciudades, la lista siempre contiene
+    Las soluciones se modelan como listas de enteros, donde cada numero representa
+    una ciudad especifica. Si el grafo contiene n ciudades, la lista siempre contiene
     (n-1) elementos. La lista nunca contiene elementos repetidos y nunca contiene la 
     ciudad de inicio y fin del circuito.
 
-    Métodos:
+    Metodos:
     generar()
-        Construye aleatoriamente una lista que representa una posible solución al problema.
+        Construye aleatoriamente una lista que representa una posible solucion al problema.
 
     fcosto(sol)
-        Calcula el costo asociado con una solución dada.
+        Calcula el costo asociado con una solucion dada.
 
     vecino(sol)
-        Calcula una solución vecina a partir de una solución dada.
+        Calcula una solucion vecina a partir de una solucion dada.
 
     validar(sol)
-        Valida que la solución dada cumple con los requisitos del problema.
+        Valida que la solucion dada cumple con los requisitos del problema.
 
     texto(sol)
-        Construye una representación en hilera legible por humanos de la solución
+        Construye una representacion en hilera legible por humanos de la solucion
         con el fin de reportar resultados al usuario final.
     """
 
     def __init__(self, ciudades_rutacsv, ciudad_inicio):
         """Construye un objeto de modelo de dominio para una instancia
-        específica del problema del vendedor viajero.
+        especifica del problema del vendedor viajero.
 
         Entradas:
         ciudades_rutacsv (str)
@@ -41,7 +41,7 @@ class DominioTSP(Dominio):
             para las que se quiere resolver el problema del vendedor viajero.
 
         ciudad_inicio (str)
-            Nombre de la ciudad que será el inicio y fin del circuito a calcular.
+            Nombre de la ciudad que sera el inicio y fin del circuito a calcular.
 
         Salidas:
             Una instancia de DominioTSP correctamente inicializada.
@@ -73,20 +73,20 @@ class DominioTSP(Dominio):
         return True
     
     def validar(self, sol):
-        """Valida que la solución dada cumple con los requisitos del problema.
+        """Valida que la solucion dada cumple con los requisitos del problema.
 
-        Si n es el número de ciudades en el grafo, la solución debe:
-        - Tener tamaño (n-1)
-        - Contener sólo números enteros menores que n (las ciudades se numeran de 0 a (n-1))
+        Si n es el numero de ciudades en el grafo, la solucion debe:
+        - Tener tamanno (n-1)
+        - Contener solo numeros enteros menores que n (las ciudades se numeran de 0 a (n-1))
         - No contener elementos repetidos
         - No contener la ciudad de inicio/fin del circuito
 
         Entradas:
         sol (list)
-            La solución a validar.
+            La solucion a validar.
 
         Salidas:
-        (bool) True si la solución es válida, False en cualquier otro caso
+        (bool) True si la solucion es valida, False en cualquier otro caso
         """
         if revisar_duplicados(sol) == True:
             return False
@@ -103,7 +103,7 @@ class DominioTSP(Dominio):
         return True
 
     def texto(self, sol):
-        """Construye una representación en hilera legible por humanos de la solución
+        """Construye una representacion en hilera legible por humanos de la solucion
         con el fin de reportar resultados al usuario final.
 
         La hilera cumple con el siguiente formato:
@@ -111,7 +111,7 @@ class DominioTSP(Dominio):
 
         Entradas:
         sol (list)
-            Solución a representar como texto legible
+            Solucion a representar como texto legible
 
         Salidas:
         (str) Hilera en el formato mencionado anteriormente.
@@ -126,13 +126,13 @@ class DominioTSP(Dominio):
 
 
     def generar(self):
-        """Construye aleatoriamente una lista que representa una posible solución al problema.
+        """Construye aleatoriamente una lista que representa una posible solucion al problema.
 
         Entradas:
         ninguna
 
         Salidas:
-        (list) Una lista que representa una solución válida para esta instancia del vendedor viajero
+        (list) Una lista que representa una solucion valida para esta instancia del vendedor viajero
         """
 
         sol = self.indices_ciudades
@@ -142,14 +142,14 @@ class DominioTSP(Dominio):
         return sol
 
     def fcosto(self, sol):
-        """Calcula el costo asociado con una solución dada.
+        """Calcula el costo asociado con una solucion dada.
 
         Entradas:
         sol (list)
-            Solución cuyo costo se debe calcular
+            Solucion cuyo costo se debe calcular
 
         Salidas:
-        (float) valor del costo asociado con la solución
+        (float) valor del costo asociado con la solucion
         """
         costo = 0.0
 
@@ -162,19 +162,19 @@ class DominioTSP(Dominio):
 
 
     def vecino(self, sol):
-        """Calcula una solución vecina a partir de una solución dada.
+        """Calcula una solucion vecina a partir de una solucion dada.
 
-        Una solución vecina comparte la mayor parte de su estructura con 
-        la solución que la origina, aunque no son exactamente iguales. El 
-        método transforma aleatoriamente algún aspecto de la solución
+        Una solucion vecina comparte la mayor parte de su estructura con 
+        la solucion que la origina, aunque no son exactamente iguales. El 
+        metodo transforma aleatoriamente algun aspecto de la solucion
         original.
 
         Entradas:
         sol (list)
-            Solución a partir de la cual se originará una nueva solución vecina
+            Solucion a partir de la cual se originara una nueva solucion vecina
 
         Salidas:
-        (list) Solución vecina
+        (list) Solucion vecina
         """
         n = len(sol)
         
