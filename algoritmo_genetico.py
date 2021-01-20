@@ -1,27 +1,27 @@
 import random as rand
 
 def optimizar(dominio, tam_pobl, porc_elite, prob_mut, reps):
-    """Algoritmo genético para optimización estocástica.
+    """Algoritmo genetico para optimizacion estocoastica.
 
     Entradas:
     dominio (DominioAG)
         Un objeto que modela el dominio del problema que se quiere aproximar.
     
     tam_pobl (int)
-        Tamaño de la población.
+        Tamaño de la poblacion.
     
     porc_elite (float)
-        Porcentaje de la población que se tomará como elite.
+        Porcentaje de la poblacion que se tomara como elite.
     
     prob_mut (float)
-        Probabilidad de mutación, debe estar en el rango [0, 1]
+        Probabilidad de mutacion, debe estar en el rango [0, 1]
     
     reps (int)
-        Número de iteraciones a ejecutar.
+        Numero de iteraciones a ejecutar.
 
     Salidas:
-        (estructura de datos) Estructura de datos según el dominio, que representa una
-        aproximación a la mejor solución al problema.
+        (estructura de datos) Estructura de datos segun el dominio, que representa una
+        aproximacion a la mejor solucion al problema.
     """
 
     poblacion = dominio.generar_n(tam_pobl)

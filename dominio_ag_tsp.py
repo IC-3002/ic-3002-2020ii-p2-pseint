@@ -37,7 +37,7 @@ class DominioAGTSP(DominioAG, DominioTSP):
             para las que se quiere resolver el problema del vendedor viajero.
 
         ciudad_inicio (str)
-            Nombre de la ciudad que será el inicio y fin del circuito a calcular.
+            Nombre de la ciudad que sera el inicio y fin del circuito a calcular.
 
         Salidas:
             Una instancia de DominioAGTSP correctamente inicializada.
@@ -73,7 +73,7 @@ class DominioAGTSP(DominioAG, DominioTSP):
 
         Salidas:
         (list) Lista que contiene n listas, cada una representando
-        una posible solución al problema modelado por el objeto de dominio.
+        una posible solucion al problema modelado por el objeto de dominio.
         """
         soluciones = []
 
@@ -91,17 +91,17 @@ class DominioAGTSP(DominioAG, DominioTSP):
         return soluciones
 
     def cruzar(self, sol_a, sol_b):
-        """Produce una nueva posible solución cruzando las dos soluciones dadas por parámetro.
+        """Produce una nueva posible solucion cruzando las dos soluciones dadas por parametro.
 
         Entradas:
         sol_a (estructura de datos)
-            Estructura de datos que modela la solución antecesora A que será cruzada con la B
+            Estructura de datos que modela la solucion antecesora A que sera cruzada con la B
 
         sol_b (estructura de datos)
-            Estructura de datos que modela la solución antecesora B que será cruzada con la A
+            Estructura de datos que modela la solucion antecesora B que sera cruzada con la A
 
         Salidas:
-        (estructura de datos) Una nueva solución producto del cruzamiento entre las soluciones A y B
+        (estructura de datos) Una nueva solucion producto del cruzamiento entre las soluciones A y B
         """
 
         if len(sol_a) != len(sol_b):
@@ -131,24 +131,31 @@ class DominioAGTSP(DominioAG, DominioTSP):
 
 
     def mutar(self, sol):
-        """Produce una nueva solución aplicando un ligero cambio a la solución dada por
-        parámetro.
+        """Produce una nueva solucion aplicando un ligero cambio a la solucion dada por
+        parametro.
 
         Entradas:
         sol (estructura de datos)
-            La solución a mutar.
+            La solucion a mutar.
         
         Salidas:
-        (estructura de datos) Una nueva solución que refleja un ligero cambio con respecto 
-        a la solución dada por parámetro
+        (estructura de datos) Una nueva solucion que refleja un ligero cambio con respecto 
+        a la solucion dada por parametro
         """
         mutacion = []
 
         for i in range(len(sol)):
             mutacion.append(sol[i])
 
-        punto_a = rand.randint(0,len(sol)-1)
-        punto_b = rand.randint(0,len(sol)-1)
+        punto_a = rand.randint(0,len(sol) - 1)
+        punto_b = rand.randint(0,len(sol) - 1)
+
+        while punto_a == punto_b:
+
+            punto_a = rand.randint(0,len(sol) - 1)
+            punto_b = rand.randint(0,len(sol) - 1)
+
+            
         temp = mutacion[punto_a]
         
         mutacion[punto_a] = mutacion[punto_b]
