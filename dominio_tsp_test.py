@@ -37,7 +37,7 @@ class PruebaDominioTSP(unittest.TestCase):
 
     def test_texto(self):
         self.assertEqual(self.__tsp.texto(
-            [1, 2, 3]), "Alajuela -> Heredia -> San José -> Cartago -> Alajuela")
+            [1, 2, 3]), "Alajuela -> Heredia -> San Jose -> Cartago -> Alajuela")
 
     def test_generar(self):
         n = 10

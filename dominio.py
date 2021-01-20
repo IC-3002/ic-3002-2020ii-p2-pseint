@@ -68,22 +68,6 @@ class Dominio(ABC):
         pass
 
     @abstractmethod
-    def revisar_duplicados(self, sol):
-        """Construye una representacion en hilera legible por humanos de la solucion
-        con el fin de reportar resultados al usuario final.
-
-        Entradas:
-        sol (estructura de datos)
-            La solucion a transformar en texto legible
-
-        Salidas:
-        (str) El texto legible que representa a la solucion.
-        """
-
-        pass
-
-
-    @abstractmethod
     def validar(self, sol):
         """Valida que la solucion dada cumpla con todos los requerimientos del problema.
 

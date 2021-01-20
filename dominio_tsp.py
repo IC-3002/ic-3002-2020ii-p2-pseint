@@ -2,7 +2,6 @@ from dominio import Dominio
 import csv as py_csv
 import random as rand
 
-
 class DominioTSP(Dominio):
     """
     Esta clase modela el dominio del problema del Vendedor Viajero para su resolucion
@@ -58,7 +57,7 @@ class DominioTSP(Dominio):
 
         for j in range (1, len(ciudades[0])):
             if ciudades[0][j] == ciudad_inicio:
-                indice_ciudad_inicio = j- 1
+                indice_ciudad_inicio = j - 1
             indices_ciudades.append(j - 1)
 
         self.ciudades_rutacsv = ciudades_rutacsv
@@ -66,11 +65,6 @@ class DominioTSP(Dominio):
         self.indice_ciudad_inicio = indice_ciudad_inicio
         self.indices_ciudades = indices_ciudades
         self.matriz_ciudades = ciudades
-
-    def revisar_duplicados(lista):
-        if (len(lista) == len(set(lista))):
-            return False
-        return True
     
     def validar(self, sol):
         """Valida que la solucion dada cumple con los requisitos del problema.
@@ -88,7 +82,7 @@ class DominioTSP(Dominio):
         Salidas:
         (bool) True si la solucion es valida, False en cualquier otro caso
         """
-        if revisar_duplicados(sol) == True:
+        if (len(sol) != len(set(sol))):
             return False
 
         if len(sol) != len(self.indices_ciudades) - 1:
@@ -119,8 +113,12 @@ class DominioTSP(Dominio):
 
         string_sol = ''
 
+        string_sol += str(self.matriz_ciudades[0][self.indice_ciudad_inicio + 1]) + ' -> '
+
         for i in range(len(sol)):
             string_sol += str(self.matriz_ciudades[0][sol[i] + 1]) + ' -> '
+
+        string_sol += str(self.matriz_ciudades[0][self.indice_ciudad_inicio + 1])
 
         return string_sol
 
@@ -134,9 +132,11 @@ class DominioTSP(Dominio):
         Salidas:
         (list) Una lista que representa una solucion valida para esta instancia del vendedor viajero
         """
+        sol = list(range(0,len(self.indices_ciudades)))
 
-        sol = self.indices_ciudades
-        sol.remove(self.indice_ciudad_inicio)
+        if self.indice_ciudad_inicio != float('inf'):
+            sol.remove(self.indice_ciudad_inicio)
+
         rand.shuffle(sol)
 
         return sol
@@ -153,15 +153,17 @@ class DominioTSP(Dominio):
         """
         costo = 0.0
 
-        for i in range(len(sol)):
-            costo += self.matriz_ciudades[sol[i]][sol[i+1]]
+        for i in range(len(sol) - 1):
+
+            costo += float(self.matriz_ciudades[sol[i] + 1][sol[i+1] + 1])
         
-        costo += self.matriz_ciudades[self.indice_ciudad_inicio][sol[0]] + self.matriz_ciudades[sol[len(sol)- 1]][self.indice_ciudad_inicio] 
+        costo += float(self.matriz_ciudades[self.indice_ciudad_inicio + 1][sol[0] + 1]) + float(self.matriz_ciudades[sol[len(sol)- 1] + 1][self.indice_ciudad_inicio + 1])
 
         return costo
 
 
     def vecino(self, sol):
+
         """Calcula una solucion vecina a partir de una solucion dada.
 
         Una solucion vecina comparte la mayor parte de su estructura con 
@@ -176,15 +178,24 @@ class DominioTSP(Dominio):
         Salidas:
         (list) Solucion vecina
         """
+
+        vecino = []
+
+        for i in range(0, len(sol)):
+            vecino.append(sol[i])
+
         n = len(sol)
         
-        while i == j:
+        x = rand.randint(0, n-1)
+        y = rand.randint(0, n-1)
 
-            i = rand.randint(0, n-1)
-            j = rand.randint(0, n-1)
+        while x == y:
+
+            x = rand.randint(0, n-1)
+            y = rand.randint(0, n-1)
         
-        temp = sol[i]
-        sol[i] = sol[j]
-        sol[j] = temp
+        temp = vecino[x]
+        vecino[x] = vecino[y]
+        vecino[y] = temp
 
-        return sol
+        return vecino

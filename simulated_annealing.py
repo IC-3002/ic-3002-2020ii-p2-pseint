@@ -23,7 +23,7 @@ def optimizar(dominio, temperatura = 10e32, tasa_enfriamiento = 0.95):
     """
 
     solucion = dominio.generar() #genera una solucion al azar
-    costo = dominio.fcosto(sol) #se calcula el costo de dicha solucion
+    costo = dominio.fcosto(solucion) #se calcula el costo de dicha solucion
     
     while temperatura > 0.01:
         

@@ -52,10 +52,10 @@ class DominioAGTSP(DominioAG, DominioTSP):
             for row in reader:
                 ciudades.append(row)
 
-        for j in range (1, len(ciudades[0])):
-            if ciudades[0][j] == ciudad_inicio:
-                indice_ciudad_inicio = j- 1
-            indices_ciudades.append(j - 1)
+        for i in range (1, len(ciudades[0])):
+            if ciudades[0][i] == ciudad_inicio:
+                indice_ciudad_inicio = i
+            indices_ciudades.append(i)
 
         self.ciudades_rutacsv = ciudades_rutacsv
         self.ciudad_inicio = ciudad_inicio
@@ -77,8 +77,11 @@ class DominioAGTSP(DominioAG, DominioTSP):
         """
         soluciones = []
 
-        sol = self.indices_ciudades
-        sol.remove(self.indice_ciudad_inicio)
+        sol = list(range(0,len(self.indices_ciudades)))
+
+
+        if self.indice_ciudad_inicio != float('inf'):
+            sol.remove(int(self.indice_ciudad_inicio))
 
         for i in range(n):
 
@@ -139,12 +142,16 @@ class DominioAGTSP(DominioAG, DominioTSP):
         (estructura de datos) Una nueva solución que refleja un ligero cambio con respecto 
         a la solución dada por parámetro
         """
+        mutacion = []
+
+        for i in range(len(sol)):
+            mutacion.append(sol[i])
 
         punto_a = rand.randint(0,len(sol)-1)
         punto_b = rand.randint(0,len(sol)-1)
-        temp = sol[punto_a]
+        temp = mutacion[punto_a]
         
-        sol[punto_a] = sol[punto_b]
-        sol[punto_b] = temp
+        mutacion[punto_a] = mutacion[punto_b]
+        mutacion[punto_b] = temp
         
-        return sol
+        return mutacion

@@ -1,4 +1,3 @@
-import dominio_ag_tsp as dominio
 import random as rand
 
 def optimizar(dominio, tam_pobl, porc_elite, prob_mut, reps):
@@ -26,19 +25,18 @@ def optimizar(dominio, tam_pobl, porc_elite, prob_mut, reps):
     """
 
     poblacion = dominio.generar_n(tam_pobl)
-    genomas = []
+    
     while reps > 0:
 
+        genomas = []
         for sol in poblacion:
-
             aptitud = dominio.fcosto(sol)
             genoma = (sol, aptitud)
             genomas.append(genoma)
-        
-        genomas.sort(key=lambda genoma: genoma[1]) #llave aptitud
 
-        for i in range(0, len(genomas)):
+        genomas.sort(key=lambda x: x[1])
 
+        for i in range(len(genomas)):
             poblacion[i] = genomas[i][0]
 
         num_padres = int(len(poblacion) * porc_elite)
@@ -48,19 +46,19 @@ def optimizar(dominio, tam_pobl, porc_elite, prob_mut, reps):
 
         while num_hijos > 0:
 
-            padre_a = sig_gen[rand.randint(0, len(sig_gen) - 1)]
-            padre_b = sig_gen[rand.randint(0, len(sig_gen) - 1)]
+            padre_a = sig_gen[rand.randrange(0, len(sig_gen))]
+            padre_b = sig_gen[rand.randrange(0, len(sig_gen))]
             hijo = dominio.cruzar(padre_a, padre_b)
             p = rand.uniform(0, 1)
 
             if p <= prob_mut:
                 hijo = dominio.mutar(hijo)
-
             descendencia.append(hijo)
-            num_hijos -= 1
+            num_hijos = num_hijos - 1
 
+        
+        sig_gen += descendencia
+        poblacion = sig_gen
+        reps = reps - 1
 
-        poblacion = sig_gen.extend(descendencia)
-        reps -= 1
-    
     return poblacion[0]
