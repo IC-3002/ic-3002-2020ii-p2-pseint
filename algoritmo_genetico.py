@@ -29,7 +29,7 @@ def optimizar(dominio, tam_pobl, porc_elite, prob_mut, reps):
     while reps > 0:
 
         genomas = []
-        for sol in poblacion:
+        for sol in poblacion:                       # Se puede usar listas de comprension
             aptitud = dominio.fcosto(sol)
             genoma = (sol, aptitud)
             genomas.append(genoma)
@@ -45,9 +45,18 @@ def optimizar(dominio, tam_pobl, porc_elite, prob_mut, reps):
         descendencia = []
 
         while num_hijos > 0:
+            
+            x = rand.randrange(0, len(sig_gen))
+            y = rand.randrange(0, len(sig_gen))
 
-            padre_a = sig_gen[rand.randrange(0, len(sig_gen))]
-            padre_b = sig_gen[rand.randrange(0, len(sig_gen))]
+            while x == y:
+
+                x = rand.randrange(0, len(sig_gen))
+                y = rand.randrange(0, len(sig_gen))
+
+            padre_a = sig_gen[x]
+            padre_b = sig_gen[y]
+
             hijo = dominio.cruzar(padre_a, padre_b)
             p = rand.uniform(0, 1)
 

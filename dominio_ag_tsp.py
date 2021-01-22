@@ -26,6 +26,8 @@ class DominioAGTSP(DominioAG, DominioTSP):
         parámetro.
     """
 
+
+
     def __init__(self, ciudades_rutacsv, ciudad_inicio):
         """Construye un objeto de modelo de dominio para una instancia
         específica del problema del vendedor viajero para ser resuelto
@@ -43,25 +45,9 @@ class DominioAGTSP(DominioAG, DominioTSP):
             Una instancia de DominioAGTSP correctamente inicializada.
         """
 
-        ciudades = []
-        indices_ciudades = []
-        indice_ciudad_inicio = float('inf')
+        DominioTSP.__init__(self, ciudades_rutacsv, ciudad_inicio)
 
-        with open(ciudades_rutacsv, 'r') as file:
-            reader = py_csv.reader(file)
-            for row in reader:
-                ciudades.append(row)
 
-        for i in range (1, len(ciudades[0])):
-            if ciudades[0][i] == ciudad_inicio:
-                indice_ciudad_inicio = i
-            indices_ciudades.append(i)
-
-        self.ciudades_rutacsv = ciudades_rutacsv
-        self.ciudad_inicio = ciudad_inicio
-        self.indice_ciudad_inicio = indice_ciudad_inicio
-        self.indices_ciudades = indices_ciudades
-        self.matriz_ciudades = ciudades
 
     def generar_n(self, n):
         """Construye aleatoriamente una lista de listas que representa n 
@@ -76,19 +62,15 @@ class DominioAGTSP(DominioAG, DominioTSP):
         una posible solucion al problema modelado por el objeto de dominio.
         """
         soluciones = []
-
-        sol = list(range(0,len(self.indices_ciudades)))
-
-
-        if self.indice_ciudad_inicio != float('inf'):
-            sol.remove(int(self.indice_ciudad_inicio))
-
+      
         for i in range(n):
 
-            rand.shuffle(sol)
+            sol = DominioTSP.generar(self)
             soluciones.append(sol)
 
         return soluciones
+
+
 
     def cruzar(self, sol_a, sol_b):
         """Produce una nueva posible solucion cruzando las dos soluciones dadas por parametro.
@@ -115,7 +97,7 @@ class DominioAGTSP(DominioAG, DominioTSP):
         gen_a = sol_a[0:punto_cruce]
         gen_b = sol_b[punto_cruce:]
 
-        conjunto = list(set(sol_a)) + list(set(sol_b))
+        conjunto = list(set(sol_a))
 
         for element in gen_a:
             if element in gen_b:
@@ -130,6 +112,7 @@ class DominioAGTSP(DominioAG, DominioTSP):
         return descendencia
 
 
+
     def mutar(self, sol):
         """Produce una nueva solucion aplicando un ligero cambio a la solucion dada por
         parametro.
@@ -142,23 +125,7 @@ class DominioAGTSP(DominioAG, DominioTSP):
         (estructura de datos) Una nueva solucion que refleja un ligero cambio con respecto 
         a la solucion dada por parametro
         """
-        mutacion = []
 
-        for i in range(len(sol)):
-            mutacion.append(sol[i])
+        mutacion = DominioTSP.vecino(self, sol)
 
-        punto_a = rand.randint(0,len(sol) - 1)
-        punto_b = rand.randint(0,len(sol) - 1)
-
-        while punto_a == punto_b:
-
-            punto_a = rand.randint(0,len(sol) - 1)
-            punto_b = rand.randint(0,len(sol) - 1)
-
-            
-        temp = mutacion[punto_a]
-        
-        mutacion[punto_a] = mutacion[punto_b]
-        mutacion[punto_b] = temp
-        
         return mutacion

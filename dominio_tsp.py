@@ -48,7 +48,7 @@ class DominioTSP(Dominio):
 
         ciudades = []
         indices_ciudades = []
-        indice_ciudad_inicio = float('inf')
+        indice_ciudad_inicio = None
 
         with open(ciudades_rutacsv, 'r') as file:
             reader = py_csv.reader(file)
@@ -60,7 +60,6 @@ class DominioTSP(Dominio):
                 indice_ciudad_inicio = j - 1
             indices_ciudades.append(j - 1)
 
-        self.ciudades_rutacsv = ciudades_rutacsv
         self.ciudad_inicio = ciudad_inicio
         self.indice_ciudad_inicio = indice_ciudad_inicio
         self.indices_ciudades = indices_ciudades
@@ -82,6 +81,7 @@ class DominioTSP(Dominio):
         Salidas:
         (bool) True si la solucion es valida, False en cualquier otro caso
         """
+
         if (len(sol) != len(set(sol))):
             return False
 
@@ -111,16 +111,17 @@ class DominioTSP(Dominio):
         (str) Hilera en el formato mencionado anteriormente.
         """
 
-        string_sol = ''
-
-        string_sol += str(self.matriz_ciudades[0][self.indice_ciudad_inicio + 1]) + ' -> '
+        string_sol = []
+        separator = ' -> '
+        string_sol.append(str(self.matriz_ciudades[0][self.indice_ciudad_inicio + 1]))
 
         for i in range(len(sol)):
-            string_sol += str(self.matriz_ciudades[0][sol[i] + 1]) + ' -> '
+            string_sol.append(str(self.matriz_ciudades[0][sol[i] + 1]))
 
-        string_sol += str(self.matriz_ciudades[0][self.indice_ciudad_inicio + 1])
+        string_sol.append(str(self.matriz_ciudades[0][self.indice_ciudad_inicio + 1]))
 
-        return string_sol
+        return separator.join(string_sol)
+
 
 
     def generar(self):
@@ -134,12 +135,13 @@ class DominioTSP(Dominio):
         """
         sol = list(range(0,len(self.indices_ciudades)))
 
-        if self.indice_ciudad_inicio != float('inf'):
+        if self.indice_ciudad_inicio != None:
             sol.remove(self.indice_ciudad_inicio)
 
         rand.shuffle(sol)
 
         return sol
+
 
     def fcosto(self, sol):
         """Calcula el costo asociado con una solucion dada.
@@ -178,11 +180,8 @@ class DominioTSP(Dominio):
         Salidas:
         (list) Solucion vecina
         """
-
-        vecino = []
-
-        for i in range(0, len(sol)):
-            vecino.append(sol[i])
+        
+        vecino = sol[:]
 
         n = len(sol)
         
