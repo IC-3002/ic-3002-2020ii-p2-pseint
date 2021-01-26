@@ -48,6 +48,7 @@ class DominioTSP(Dominio):
 
         ciudades = []
         indices_ciudades = []
+        nombre_ciudades = []
         indice_ciudad_inicio = None
 
         with open(ciudades_rutacsv, 'r') as file:
@@ -56,10 +57,12 @@ class DominioTSP(Dominio):
                 ciudades.append(row)
 
         for j in range (1, len(ciudades[0])):
+            nombre_ciudades.append(ciudades[0][j])
             if ciudades[0][j] == ciudad_inicio:
                 indice_ciudad_inicio = j - 1
             indices_ciudades.append(j - 1)
 
+        self.nombre_ciudades = nombre_ciudades
         self.ciudad_inicio = ciudad_inicio
         self.indice_ciudad_inicio = indice_ciudad_inicio
         self.indices_ciudades = indices_ciudades
