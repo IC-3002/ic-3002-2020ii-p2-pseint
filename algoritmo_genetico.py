@@ -50,8 +50,7 @@ def optimizar(dominio, tam_pobl, porc_elite, prob_mut, reps):
             y = rand.randrange(0, len(sig_gen))
 
             while x == y:
-
-                x = rand.randrange(0, len(sig_gen))
+                
                 y = rand.randrange(0, len(sig_gen))
 
             padre_a = sig_gen[x]

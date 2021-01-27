@@ -88,28 +88,21 @@ class DominioAGTSP(DominioAG, DominioTSP):
 
         if len(sol_a) != len(sol_b):
 
-            raise ValueError("Las soluciones deben ser del mismo tamano")
+            raise ValueError("Las soluciones deben ser del mismo tamano. sol_a", sol_a, 'sol_b', sol_b)
 
         sol_size = len(sol_a)
 
         punto_cruce = rand.randint(1, sol_size -1)
 
-        gen_a = sol_a[0:punto_cruce]
-        gen_b = sol_b[punto_cruce:]
-
-        conjunto = list(set(sol_a))
-
-        for element in gen_a:
-            if element in gen_b:
-                gen_a.remove(element)
-
-        for element in conjunto:
-            if element not in gen_a and element not in gen_b:
-                gen_a.append(element)
-
-        descendencia = gen_a + gen_b
+        solve = sol_a[:punto_cruce]
+        
+        for ciudad in sol_b:
+            if ciudad not in solve:
+                solve.append(ciudad)
+                if len(solve) == len(sol_a):
+                    break
     
-        return descendencia
+        return solve
 
 
 
