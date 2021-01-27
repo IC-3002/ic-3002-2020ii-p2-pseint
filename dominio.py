@@ -4,99 +4,94 @@ from abc import abstractmethod
 
 class Dominio(ABC):
     """
-    Representa el objeto de dominio que conoce los detalles de implementación y modelamiento
-    de algún problema específico para ser resuelto con algoritmos probabilísticos.
+    Representa el objeto de dominio que conoce los detalles de implementacion y modelamiento
+    de algun problema especifico para ser resuelto con algoritmos probabilisticos.
 
-    Métodos:
+    Metodos:
     generar()
         Construye aleatoriamente una estructura de datos que representa una posible 
-        solución al problema.
+        solucion al problema.
 
     fcosto(sol)
-        Calcula el costo asociado con una solución dada.
+        Calcula el costo asociado con una solucion dada.
 
     vecino(sol)
-        Calcula una solución vecina a partir de una solución dada.
+        Calcula una solucion vecina a partir de una solucion dada.
 
     validar(sol)
-        Valida que la solución dada cumple con los requisitos del problema.
+        Valida que la solucion dada cumple con los requisitos del problema.
 
     texto(sol)
-        Construye una representación en hilera legible por humanos de la solución
+        Construye una representacion en hilera legible por humanos de la solucion
         con el fin de reportar resultados al usuario final.
     """
 
     @abstractmethod
     def generar(self):
-        """Construye una estructura de datos que representa una posible solución al problema.
+        """Construye una estructura de datos que representa una posible solucion al problema.
 
         Entradas:
         ninguna
 
         Salidas:
-        Una estructura de datos que representa una posible solución válida al problema
+        Una estructura de datos que representa una posible solucion valida al problema
         """
 
         pass
 
     @abstractmethod
     def fcosto(self, sol):
-        """Calcula el costo asociado con una solución dada.
+        """Calcula el costo asociado con una solucion dada.
 
         Entradas:
         sol (estructura de datos)
-            Solución cuyo costo se debe calcular
+            Solucion cuyo costo se debe calcular
 
         Salidas:
-        (float) valor del costo asociado con la solución
+        (float) valor del costo asociado con la solucion
         """
 
         pass
 
     @abstractmethod
-    def vecino(self, sol):
-        """Calcula una solución vecina a partir de una solución dada.
-
-        Una solución vecina comparte la mayor parte de su estructura con 
-        la solución que la origina, aunque no son exactamente iguales. El 
-        método transforma aleatoriamente algún aspecto de la solución
-        original.
+    def vecino(sol):
+        """Revisa si la solucion dada contiene elementos duplicados o no.
 
         Entradas:
         sol (estructura de datos)
-            Solución a partir de la cual se calculará una nueva solución vecina.
+            Solucion a partir de la cual se verificara si tiene elementos duplicados.
 
         Salidas:
-        (estructura de datos) nueva solución construida con base en la solución de la entrada.
+        (bool) valor booleano que determina si la solucion contiene elementos duplicados.
         """
 
         pass
 
     @abstractmethod
     def validar(self, sol):
-        """Valida que la solución dada cumpla con todos los requerimientos del problema.
+        """Valida que la solucion dada cumpla con todos los requerimientos del problema.
 
         Entradas:
         sol (estructura de datos)
-            La solución a validar
+            La solucion a validar
 
         Salidas:
-        (bool) True si la solución es valida, False en cualquier otro caso.
+        (bool) True si la solucion es valida, False en cualquier otro caso.
         """
 
         pass
 
     @abstractmethod
     def texto(self, sol):
-        """Construye una representación en hilera legible por humanos de la solución
+        """Construye una representacion en hilera legible por humanos de la solucion
         con el fin de reportar resultados al usuario final.
 
         Entradas:
         sol (estructura de datos)
-            La solución a transformar en texto legible
+            La solucion a transformar en texto legible
 
         Salidas:
-        (str) El texto legible que representa a la solución.
+        (str) El texto legible que representa a la solucion.
         """
 
         pass

@@ -20,7 +20,7 @@ class PruebaDominioTSP(unittest.TestCase):
     def test_validar_correcta(self):
         self.assertTrue(self.__tsp.validar([1, 2, 3]))
 
-    def test_validar_más_ciudades(self):
+    def test_validar_mas_ciudades(self):
         self.assertTrue(self.__tsp.validar([1, 2, 3, 4]) == False)
 
     def test_validar_ciudad_inexistente(self):
@@ -37,7 +37,7 @@ class PruebaDominioTSP(unittest.TestCase):
 
     def test_texto(self):
         self.assertEqual(self.__tsp.texto(
-            [1, 2, 3]), "Alajuela -> Heredia -> San José -> Cartago -> Alajuela")
+            [1, 2, 3]), "Alajuela -> Heredia -> San Jose -> Cartago -> Alajuela")
 
     def test_generar(self):
         n = 10
