@@ -97,7 +97,7 @@ def comparar_resultados_tiempo_ag(resultados, reps):
 
 
 
-def comparar_resultados_costo(resultados):
+def comparar_resultados_costo(resultados, temperatura):
     costos = []
     dominio_sa = DominioTSP('datos/ciudades_cr.csv', 'Alajuela')
     for i in range(len(resultados)):
@@ -105,7 +105,7 @@ def comparar_resultados_costo(resultados):
 
     colores = ['orange', 'red', 'blue', 'cyan', 'green']
     plt.bar(['0.50', '0.60', '0.70', '0.80', '0.90'], costos, color =colores, width = 0.5)
-    plt.xlabel("Resultados a temperatura ") 
+    plt.xlabel("Resultados a temperatura " + temperatura) 
     plt.ylabel("Costo")
 
 
@@ -115,7 +115,7 @@ def comparar_resultados_costo_ag(resultados, reps):
     for i in range(len(resultados)):
         costos.append(dominio_ag.fcosto(resultados[i]))
     colores = ['orange', 'red', 'blue', 'cyan', 'green']
-    plt.bar(['50', '300', '1000'], costos, color = colores, width = 0.7)
+    plt.bar(['50', '300', '700'], costos, color = colores, width = 0.7)
     plt.xlabel("Resultados con " + reps + ' repeticiones') 
     plt.ylabel("Costo")
 
